@@ -1,0 +1,28 @@
+.footer-box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: auto 0;
+  padding: 0.5rem;
+}
+
+.footer-horizontal {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.heading {
+  font-size: 1.25rem;
+}
+
+.group {
+  cursor: pointer;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.75rem;
+}

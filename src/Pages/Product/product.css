@@ -1,0 +1,136 @@
+:root{
+    --light-gray:#F5F1F1;
+}
+
+.sidebar{
+    width: 15rem;
+    border-right: 1px solid var(--black);
+    padding: 1.5rem;
+}
+
+.filter-tab{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-box{
+    display: flex;
+    flex-direction: column;
+}
+
+.f-box-heading{
+    margin-bottom: -0.1rem;
+}
+
+.price-range{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-item{
+    margin-bottom: 0.5rem;
+}
+
+
+
+.checkboxes{
+    display: flex;
+    flex-direction: column;
+}
+
+/* main */
+
+.main-content{
+    display: flex;
+}
+
+.f-7{
+    font-size: 1rem;
+    font-weight: 400;
+}
+.products{
+    width: 85vw;
+    background-color: var(--light-gray);
+}
+
+.marg-lef{
+    margin-left: 2rem;
+}
+
+.ecom-card{
+    width: 16rem;   
+    margin: 3rem;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+}
+
+.image-box{
+    display: flex;
+    justify-content: center;
+}
+
+.ecom-img{
+    height: 14rem;
+    width: 100%;
+    object-fit: contain;
+} 
+
+.icon{
+    position: absolute;
+    top: 0.1rem;
+    right: 0.1rem;
+}
+
+.card-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    height: fit-content;
+}
+
+.card-disp{
+    display:flex;
+    flex-wrap: wrap;
+    gap:2rem;
+}
+
+.title-rating{
+    display: flex;
+    align-items: center;
+
+}
+
+
+.heading{
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-right: 2rem;
+
+}
+
+.star{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    gap: 0.25rem;
+    height: 1rem;
+    border-radius: 0.75rem;
+    align-items: center;
+    border-radius: 0.15rem;
+    background-color: var(--lightish-maroon);
+    color:#fff;
+
+}
+
+.price{
+    margin-top: 0.3rem;
+    font-weight: 600;
+}
+
+
+/* Footer */
+.footer-box{
+    border-top: 1px solid var(--black);
+}
