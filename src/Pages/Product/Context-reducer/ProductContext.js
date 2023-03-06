@@ -16,7 +16,6 @@ const ProductProvider = ({ children }) => {
 
     }, []);
 
-    console.log(ProductDetail);
 
     return (<ProdContext.Provider value={{ ProductDetail }}>
         {children}

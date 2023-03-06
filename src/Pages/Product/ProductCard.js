@@ -5,8 +5,7 @@ import { useProduct } from './Context-reducer/ProductContext'
 
 
 export const ProductCard = () => {
-    const { ProductDetail:  products } = useProduct();
-    console.log(products);
+    const { ProductDetail: products } = useProduct();
 
     return (<>
         {products.map((product) => {
