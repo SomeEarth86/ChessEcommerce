@@ -12,9 +12,9 @@ const FilterDisplay = () => {
             <div className="filter-box">
                 <h3 className="f-box-heading">Price</h3>
                 <div className="price-range">
-                    <div>50</div>
-                    <div>150</div>
-                    <div>200</div>
+                    <div>500</div>
+                    <div>2500</div>
+                    <div>4500</div>
                 </div>
                 <input type="range" />
             </div>
@@ -51,10 +51,6 @@ const FilterDisplay = () => {
                     <label className="filter-item" htmlFor="two_star">
                         <input name="rating" type="radio" id="two_star" />
                         <span>2 stars and above</span>
-                    </label>
-                    <label className="filter-item" htmlFor="one_star">
-                        <input name="rating" type="radio" id="one_star" />
-                        <span>1 stars and above</span>
                     </label>
                 </div>
             </div>

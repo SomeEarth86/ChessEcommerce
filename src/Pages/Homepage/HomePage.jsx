@@ -2,7 +2,6 @@ import { Footer } from '../footer/Footer'
 import { Navbar } from '../navbar/Navbar'
 import { Link } from "react-router-dom";
 import '../index.css'
-
 const HomePage = () => {
     return (
         <>
