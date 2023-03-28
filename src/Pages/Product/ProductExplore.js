@@ -11,11 +11,10 @@ const ProductExplore = () => {
     return (<>
 
         <Navbar />
-
         <div className="main-content">
             <FilterDisplay />
             <main className="products">
-                <h3 className="marg-lef">Showing All products ({products.length})</h3>
+                <h3 className="marg-lef">Showing Products </h3>
 
                 <div className="card-disp">
 
