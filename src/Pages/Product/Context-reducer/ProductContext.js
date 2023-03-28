@@ -6,16 +6,19 @@ const ProdContext = createContext(null);
 const ProductProvider = ({ children }) => {
     const [ProductDetail, setProductDetail] = useState([]);
 
-    useEffect(() => {
-        (async () => {
-            const response = await axios.get("/api/products");
-            const data = response.data.products;
-            setProductDetail(data);
-
-        })();
-
-    }, []);
-
+    try {
+        useEffect(() => {
+            (async () => {
+                const response = await axios.get("/api/products");
+                if (response.status === 200) {
+                    const data = response.data.products;
+                    setProductDetail(data);
+                }
+            })();
+        }, []);
+    } catch (err) {
+        console.log("Error in Product Fetching: ProductContext")
+    }
 
     return (<ProdContext.Provider value={{ ProductDetail }}>
         {children}
