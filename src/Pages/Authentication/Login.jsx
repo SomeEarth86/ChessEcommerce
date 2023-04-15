@@ -44,8 +44,9 @@ const Login = () => {
                 response = await loginService('adarshbalika@gmail.com', 'adarshbalika')
             }
             else
-                reponse = await loginService(loginUser.email, loginUser.password)
+                response = await loginService(loginUser.email, loginUser.password)
 
+            console.log(response);
             if (response.status === 200 || response.status === 201) {
                 console.log("inside 200 and 201");
                 localStorage.setItem(
