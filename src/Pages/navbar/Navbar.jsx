@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../Product/Context-reducer/AuthContext"
 import './navbar.css'
 
 export const Navbar = () => {
+
+    const { token } = useAuth();
+    const navigate = useNavigate();
+
     return (<>
         <div className='main-container'>
             <Link to='/'>

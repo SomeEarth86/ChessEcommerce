@@ -17,3 +17,10 @@ export const users = [
     updatedAt: formatDate(),
   },
 ];
+
+/* {
+"firstName": "Adarsh",
+    "lastName": "Balika",
+    "email": "adarshbalika@gmail.com",
+    "password": "adarshbalika",
+} */

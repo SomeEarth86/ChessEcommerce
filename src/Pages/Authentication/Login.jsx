@@ -2,9 +2,71 @@ import './auth.css';
 import '../index.css'
 import { Navbar } from '../navbar/Navbar';
 import { Footer } from '../footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../Product/Context-reducer/AuthContext';
+import { useEffect, useState } from 'react';
+import { loginService } from '../utils/Services';
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const { setUser, token, setToken } = useAuth();
+
+    const [loginUser, setLoginUser] = useState({
+        email: '',
+        password: '',
+    })
+
+    useEffect(() => {
+        let id;
+        if (token) {
+            setTimeout(() => {
+                navigate('/');
+            }, 500)
+        }
+
+        return () => clearTimeout(id);
+    }, [token])
+
+    const loginHandler = async (event, setLoginUser, loginUser) => {
+        event.preventDefault();
+        try {
+            let response;
+
+            console.log("inside try");
+
+            if (event.target.innerText === 'Guest Login') {
+                console.log("Inside guest login");
+                setLoginUser({
+                    email: 'adarshbalika@gmail.com',
+                    password: 'adarshbalika'
+                });
+                response = await loginService('adarshbalika@gmail.com', 'adarshbalika')
+            }
+            else
+                reponse = await loginService(loginUser.email, loginUser.password)
+
+            if (response.status === 200 || response.status === 201) {
+                console.log("inside 200 and 201");
+                localStorage.setItem(
+                    'login',
+                    JSON.stringify({
+                        token: response.data.encodedToken,
+                        user: response.data.foundUser,
+                    })
+                )
+            }
+            console.log("here");
+            setUser(response.data.foundUser);
+            setToken(response.data.encodedToken);
+            navigate('/product-explore');
+
+        } catch (err) {
+            console.log("Inside catch");
+            console.log("Error @ LoginHandler ", err.response);
+        }
+    }
+
     return (
         <>
             <Navbar />
@@ -16,22 +78,48 @@ const Login = () => {
 
                     <label htmlFor="email">Email
                     </label>
-                    <input className="inp" type="text" name="email" />
+                    <input
+                        className="inp"
+                        type="text"
+                        name="email"
+                        value={loginUser.email}
+                        onChange={(e) => {
+                            setLoginUser({
+                                ...loginUser,
+                                email: e.target.value,
+                            })
+                        }}
+                    />
+
                     <label htmlFor="password">Password
                     </label>
-                    <input className="inp" type="password" name="password" />
 
-                    <div className="rem-tab">
-                        <div className="remember">
-                            <input type="checkbox" name="rem" />
-                            <label htmlFor="rem">Remember Me</label>
-                        </div>
+                    <input
+                        className="inp"
+                        type="password"
+                        placeholder='**********'
+                        name="password"
+                        value={loginUser.password}
+                        onChange={(e) => {
+                            setLoginUser({
+                                ...loginUser,
+                                password: e.target.value,
+                            })
+                        }}
+                    />
 
-                        <a href="#">Forgot Password</a>
-                    </div>
+
 
                     <div className="footer-btm">
-                        <button className="btn btn-dark">Login</button>
+                        <button
+                            className="btn btn-dark"
+                            onClick={(e) => loginHandler(e, setLoginUser, loginUser)}
+                        >Login</button>
+
+                        <button
+                            className="btn btn-dark accent"
+                            onClick={(e) => loginHandler(e, setLoginUser, loginUser)}
+                        >Guest Login</button>
 
                         <Link to='/signup' >
                             Create a new account

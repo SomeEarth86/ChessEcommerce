@@ -1,8 +1,8 @@
 import Mockman from 'mockman-js';
 import { Routes, Route } from "react-router-dom"
 import {
-  Login, Signup, Cart,
-  HomePage, ProductExplore, Wishlist, LandingPage
+  Login, HomePage, Signup, Cart,
+  ProductExplore, Wishlist, Logout,
 } from './Pages/index_page';
 
 
@@ -11,6 +11,7 @@ function App() {
     <div className="App">
 
       <Routes>
+
         <Route path='/' element={<HomePage />} />
         <Route path='/product-explore' element={<ProductExplore />} />
         <Route path='/signup' element={<Signup />} />
@@ -18,6 +19,7 @@ function App() {
         <Route path='/cart' element={<Cart />} />``
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/mockman' element={<Mockman />} />
+        <Route path='/logout' element={<Logout />} />
 
       </Routes>
 
