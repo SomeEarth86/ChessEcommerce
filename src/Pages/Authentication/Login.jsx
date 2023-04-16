@@ -41,30 +41,33 @@ const Login = () => {
                     email: 'adarshbalika@gmail.com',
                     password: 'adarshbalika'
                 });
+                console.log("before", response);
                 response = await loginService('adarshbalika@gmail.com', 'adarshbalika')
+                console.log("after", response);
             }
-            else
+            else {
+                console.log("inside else block @Login.jsx");
                 response = await loginService(loginUser.email, loginUser.password)
 
+            }
             console.log(response);
             if (response.status === 200 || response.status === 201) {
                 console.log("inside 200 and 201");
                 localStorage.setItem(
-                    'login',
-                    JSON.stringify({
+                    'login', JSON.stringify({
                         token: response.data.encodedToken,
                         user: response.data.foundUser,
                     })
                 )
             }
-            console.log("here");
+            console.log("here, successful login");
             setUser(response.data.foundUser);
             setToken(response.data.encodedToken);
             navigate('/product-explore');
 
         } catch (err) {
             console.log("Inside catch");
-            console.log("Error @ LoginHandler ", err.response);
+            console.log("Error @ LoginHandler ", err);
         }
     }
 
