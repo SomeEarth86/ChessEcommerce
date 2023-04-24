@@ -4,8 +4,12 @@ import './navbar.css'
 
 export const Navbar = () => {
 
-    const { token } = useAuth();
+    const { authToken } = useAuth();
     const navigate = useNavigate();
+
+    const isUserLoggedIn = (path) => {
+        return authToken ? navigate(path) : navigate("/login");
+    }
 
     return (<>
         <div className='main-container'>
@@ -18,19 +22,26 @@ export const Navbar = () => {
             <div className="right-nav">
                 <Link to='/product-explore'>Product</Link>
 
-                <Link to='/wishlist' className="badge-nav">
-                    <i className="far fa-heart fa-lg"></i>
-                    <span className="badge-num">35</span>
-                </Link>
 
-                <Link to='/cart' className='badge-nav'>
-                    <i className="fas fa-shopping-cart fa-lg"></i>
+                <i
+                    className="far fa-heart fa-lg badge-nav"
+                    onClick={() => isUserLoggedIn("/wishlist")}
+                >
                     <span className="badge-num">5</span>
-                </Link>
+                </i>
 
-                <Link to='/login'>
-                    <i className="fas fa-user-astronaut fa-lg"></i>
-                </Link>
+                <i
+                    className="fas fa-shopping-cart fa-lg badge-nav"
+                    onClick={() => isUserLoggedIn("/cart")}
+                >
+                    <span className="badge-num">5</span>
+                </i>
+
+                <i
+                    className="fas fa-user-astronaut fa-lg"
+                    onClick={() => isUserLoggedIn("/profile")}
+                ></i>
+
             </div>
         </div>
     </>)

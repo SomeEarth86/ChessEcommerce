@@ -2,11 +2,14 @@ import Mockman from 'mockman-js';
 import { Routes, Route } from "react-router-dom"
 import {
   Login, HomePage, Signup, Cart,
-  ProductExplore, Wishlist, Logout,
+  ProductExplore, Wishlist, Logout, Profile,
 } from './Pages/index_page';
+import { useAuth } from './Pages/Product/Context-reducer/AuthContext';
 
 
 function App() {
+  const { authToken } = useAuth();
+
   return (
     <div className="App">
 
@@ -20,6 +23,7 @@ function App() {
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/mockman' element={<Mockman />} />
         <Route path='/logout' element={<Logout />} />
+        {authToken && <Route path='/profile' element={<Profile />} />}
 
       </Routes>
 

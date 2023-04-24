@@ -8,68 +8,41 @@ import { useEffect, useState } from 'react';
 import { loginService } from '../utils/Services';
 
 const Login = () => {
+    const { setAuthToken, setAuthUser } = useAuth();
     const navigate = useNavigate();
+    const [loginData, setLoginData] = useState({ email: "", password: "" });
 
-    const { setUser, token, setToken } = useAuth();
-
-    const [loginUser, setLoginUser] = useState({
-        email: '',
-        password: '',
-    })
-
-    useEffect(() => {
-        let id;
-        if (token) {
-            setTimeout(() => {
-                navigate('/');
-            }, 500)
-        }
-
-        return () => clearTimeout(id);
-    }, [token])
-
-    const loginHandler = async (event, setLoginUser, loginUser) => {
-        event.preventDefault();
+    const loginHandler = async (e) => {
         try {
             let response;
-
-            console.log("inside try");
-
-            if (event.target.innerText === 'Guest Login') {
-                console.log("Inside guest login");
-                setLoginUser({
-                    email: 'adarshbalika@gmail.com',
-                    password: 'adarshbalika'
+            if (e.target.innerText === "Guest Login") {
+                setLoginData({
+                    email: "adarshbalika@gmail.com",
+                    password: "adarshbalika",
                 });
-                console.log("before", response);
-                response = await loginService('adarshbalika@gmail.com', 'adarshbalika')
-                console.log("after", response);
+                response = await loginService(
+                    "adarshbalika@gmail.com",
+                    "adarshbalika"
+                );
             }
-            else {
-                console.log("inside else block @Login.jsx");
-                response = await loginService(loginUser.email, loginUser.password)
+            else
+                response = await loginService(loginData.email, loginData.password);
 
-            }
-            console.log(response);
-            if (response.status === 200 || response.status === 201) {
-                console.log("inside 200 and 201");
-                localStorage.setItem(
-                    'login', JSON.stringify({
-                        token: response.data.encodedToken,
-                        user: response.data.foundUser,
-                    })
-                )
-            }
-            console.log("here, successful login");
-            setUser(response.data.foundUser);
-            setToken(response.data.encodedToken);
-            navigate('/product-explore');
 
-        } catch (err) {
-            console.log("Inside catch");
-            console.log("Error @ LoginHandler ", err);
+            const user = JSON.stringify(response.foundUser);
+            const tokenResponse = response.encodedToken;
+
+            setAuthToken(tokenResponse);
+            setAuthUser(response.foundUser);
+
+            localStorage.setItem("authToken", tokenResponse);
+            localStorage.setItem("authUser", user);
+
+            navigate("/product-explore");
+        } catch (e) {
+            console.log("loginHandler: Error @ Login.jsx", e);
         }
-    }
+    };
 
     return (
         <>
@@ -86,10 +59,10 @@ const Login = () => {
                         className="inp"
                         type="text"
                         name="email"
-                        value={loginUser.email}
+                        value={loginData.email}
                         onChange={(e) => {
-                            setLoginUser({
-                                ...loginUser,
+                            setLoginData({
+                                ...loginData,
                                 email: e.target.value,
                             })
                         }}
@@ -103,10 +76,10 @@ const Login = () => {
                         type="password"
                         placeholder='**********'
                         name="password"
-                        value={loginUser.password}
+                        value={loginData.password}
                         onChange={(e) => {
-                            setLoginUser({
-                                ...loginUser,
+                            setLoginData({
+                                ...loginData,
                                 password: e.target.value,
                             })
                         }}
@@ -117,12 +90,11 @@ const Login = () => {
                     <div className="footer-btm">
                         <button
                             className="btn btn-dark"
-                            onClick={(e) => loginHandler(e, setLoginUser, loginUser)}
                         >Login</button>
 
                         <button
                             className="btn btn-dark accent"
-                            onClick={(e) => loginHandler(e, setLoginUser, loginUser)}
+                            onClick={loginHandler}
                         >Guest Login</button>
 
                         <Link to='/signup' >

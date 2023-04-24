@@ -1,63 +1,27 @@
-import { createContext, useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { SignupService } from "../../utils/Services";
+const { createContext, useState, useEffect, useContext } = require("react");
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-    const localStorageToken = JSON.parse(localStorage.getItem("login"));
-
-    const [token, setToken] = useState(localStorageToken?.token)
-
-    const localStorageUser = JSON.parse(localStorage.getItem('user'));
-    const [user, setUser] = useState(localStorageUser?.user);
-
-    const navigate = useNavigate();
+    const [authToken, setAuthToken] = useState("");
+    const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
-        const fetchToken = JSON.parse(localStorage.getItem('login'));
+        const localStorageAuth = localStorage.getItem("authToken");
 
-        if (fetchToken)
-            setToken(fetchToken.tokens);
-    }, []);
-
-    const signupUser = async (firstName, lastName, password, email) => {
-        try {
-            const response = await SignupService({
-                firstName,
-                lastName,
-                password,
-                email,
-             });
-
-            if (response.status === 201) {
-                localStorage.setItem('login',
-                    JSON.stringify({
-                        token: response.data.encodedToken,
-                        user: resp.data.createdUser,
-                    })
-                );
-                setUser(response.data.createdUser);
-                setToken(response.data.encodedToken);
-            }
+        if (localStorageAuth) {
+            setAuthToken(localStorageAuth);
+            setAuthUser(JSON.parse(localStorage.getItem("authUser")))
         }
-        catch (err) {
-            console.log("Following Login Error at AuthContext", err)
-        }
-    }
 
-    return (<AuthContext.Provider value={{
-        signupUser,
-        token,
-        setToken,
-        user,
-        setUser,
-    }}>
+    }, [])
+
+    return <AuthContext.Provider value={{ authToken, setAuthToken, authUser, setAuthUser }}>
         {children}
-    </AuthContext.Provider>)
+    </AuthContext.Provider>
 }
 
 const useAuth = () => useContext(AuthContext);
 
-export { useAuth, AuthProvider };
+export { useAuth, AuthProvider }
