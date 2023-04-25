@@ -30,8 +30,8 @@ export const Profile = () => {
                 <div className="pf-details">
                     <div className="det-heading">Account Details</div>
 
-                    <div>Name : {`${authUser.firstName} ${authUser.lastName}`}  </div>
-                    <div>Email: {`${authUser.email}`}</div>
+                    <div>Name : <strong>{`${authUser.firstName} ${authUser.lastName}`} </strong>  </div>
+                    <div>Email: <strong> {`${authUser.email}`}</strong> </div>
 
                     <button
                         className="log-btn"
