@@ -1,0 +1,45 @@
+.pf-container {
+  height: 85vh;
+  background-color: #f5f1f1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pf-box {
+  width: 20vw;
+  padding: 1rem;
+
+  margin-bottom: 5rem;
+
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.pf-heading {
+  text-align: center;
+}
+
+.det-heading {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.pf-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.log-btn {
+  width: 30%;
+  margin: auto;
+  font: inherit;
+  padding: 0.7rem 0.4rem;
+
+  border: 1px solid rgb(245, 80, 80);
+  color: rgb(245, 80, 80);
+}

@@ -6,7 +6,7 @@
 }
 
 .log-card {
-  height: 20rem;
+  height: auto;
   width: 20rem;
   padding: 1rem;
   display: flex;
@@ -19,6 +19,11 @@
 
 .btn-dark {
   width: 60%;
+  margin-bottom: 0.1rem;
+}
+
+.accent {
+  background-color: #4f46e5;
 }
 
 .rem-tab {
@@ -31,4 +36,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/* ----------LogOut Section-------------- */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 5rem;
+}
+
+.subtext {
+  font-weight: 300;
+}
+
+.auth-btn {
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
 }
