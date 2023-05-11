@@ -8,12 +8,17 @@ import {
     sortStarRating,
     sortByCategory
 } from '../utils/filterMethod';
+import { useAuth } from './Context-reducer/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { addToCart } from '../utils/Services';
 
 export const ProductCard = () => {
     const { ProductDetail: products } = useProduct();
 
     let localProdCopy = products;
-    const { filterState } = useFilter();
+    const { filterState, filterDispatch } = useFilter();
+    const { authToken } = useAuth();
+    const navigate = useNavigate();
 
     const { books, chess_set, wearable } = filterState.category
 
@@ -21,6 +26,29 @@ export const ProductCard = () => {
     const sortDataProducts = sortData(priceRangeProducts, filterState.sortBy);
     const starRatingProducts = sortStarRating(sortDataProducts, filterState.rating);
     const sortCategoryProd = sortByCategory(starRatingProducts, books, chess_set, wearable);
+
+    const cartHandler = async (e, product) => {
+        if (!authToken)
+            navigate("/login");
+        else {
+            if (e.target.innerText === 'Add To Cart') {
+                const resp = await addToCart(authToken, product);
+                filterDispatch({ type: "CART_OPERATION", payload: { cart: resp.cart } })
+            }
+            else
+                navigate("/cart");
+        }
+
+    }
+
+    const toggleButtonText = (product) => {
+        const filterItem = filterState.cart.filter(cartItem => cartItem._id === product._id)
+
+        if (filterItem.length > 0)
+            return "Go To Cart"
+        else
+            return "Add To Cart"
+    }
 
     return (<>
         {sortCategoryProd.map((product) => {
@@ -46,7 +74,11 @@ export const ProductCard = () => {
                         </small>
                     </div>
 
-                    <button className="btn login">Add To Cart</button>
+                    <button
+                        className="btn login"
+                        onClick={(e) => cartHandler(e, product)}
+                    >{toggleButtonText(product)}
+                    </button>
 
                 </div>
 

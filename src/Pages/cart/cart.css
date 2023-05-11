@@ -1,16 +1,22 @@
 .content {
   min-height: 70vh;
-  /* background-color: ; */
 }
 
 .card-disp-box {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.prod-list-vertical {
+  display: flex;
+  flex-direction: column;
 }
 
 .item-card {
-  height: 20rem;
-  width: 30rem;
+  height: fit-content;
+  width: 25rem;
+  margin-bottom: 2rem;
   display: flex;
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
@@ -20,7 +26,7 @@
 
 .card-imgbox {
   height: 100%;
-  width: 45%;
+  width: 50%;
 }
 
 .card-img-cart {
@@ -33,7 +39,7 @@
 }
 
 .price-box {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .m-btm {
@@ -44,7 +50,6 @@
   margin-top: 1.3rem;
   display: flex;
   align-items: center;
-  justify-content: space-around;
 }
 
 .qty-bar {
@@ -52,11 +57,31 @@
 }
 
 .btn-cart {
-  width: 80%;
+  /* width: 80%; */
+  margin: 1rem 0rem;
+}
+
+.red-clr {
+  background-color: #fca5a5;
+  border: 1px solid #b91c1c;
+  color: #7f1d1d;
+}
+
+.pur {
+  background-color: #e0f2fe;
+  color: black;
+  border: 1px solid #1d4ed8;
+}
+
+.check {
+  background-color: #a7f3d0;
+  color: #064e3b;
+  border: 1px solid #0d9488;
+  margin: 1rem auto;
 }
 
 .order-summary {
-  height: 20rem;
+  height: fit-content;
   width: 25rem;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
@@ -71,4 +96,20 @@
 
 .close {
   margin-bottom: -1rem;
+}
+
+.empty-cart {
+  color: rgb(206, 192, 192);
+}
+
+.center {
+  text-align: center;
+}
+
+.icon-container {
+  width: 50vw;
+  height: 50vh;
+
+  display: grid;
+  place-items: center;
 }

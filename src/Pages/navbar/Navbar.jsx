@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../Product/Context-reducer/AuthContext"
 import './navbar.css'
+import { useFilter } from "../Product/Context-reducer/FilterContext";
 
 export const Navbar = () => {
 
     const { authToken } = useAuth();
     const navigate = useNavigate();
-
+    const { filterState } = useFilter();
     const isUserLoggedIn = (path) => {
         return authToken ? navigate(path) : navigate("/login");
     }
@@ -34,7 +35,9 @@ export const Navbar = () => {
                     className="fas fa-shopping-cart fa-lg badge-nav"
                     onClick={() => isUserLoggedIn("/cart")}
                 >
-                    <span className="badge-num">5</span>
+                    {filterState.cart.length > 0 &&
+                        <span className="badge-num">{filterState.cart.length}</span>
+                    }
                 </i>
 
                 <i
