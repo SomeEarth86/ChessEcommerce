@@ -35,6 +35,11 @@ export const FilterReducer = (state, action) => {
                 }
             }
 
+        case "CART_OPERATION":
+            return {
+                ...state,
+                cart: [...action.payload.cart],
+            }
 
         case "CLEAR_ALL":
             return {

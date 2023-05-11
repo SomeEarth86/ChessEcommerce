@@ -1,4 +1,4 @@
-const { createContext, useState, useEffect, useContext } = require("react");
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
 
         if (localStorageAuth) {
             setAuthToken(localStorageAuth);
-            setAuthUser(JSON.parse(localStorage.getItem("authUser")))
+            setAuthUser(localStorage.getItem("authUser"))
         }
 
     }, [])
