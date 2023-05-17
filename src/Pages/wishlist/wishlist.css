@@ -1,23 +1,39 @@
-html{
-    height: 100%;
-    margin: 0;
+html {
+  height: 100%;
+  margin: 0;
 }
 
-body{
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
-.footer-box{
-    margin-top: auto;
+.footer-box {
+  margin-top: auto;
 }
 
-.wishlist-disp{
-    display: flex;
-    flex-wrap: wrap;
+.wishlist-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.icon{
-    color: red;
+.icon {
+  color: red;
+}
+
+.center {
+  text-align: center;
+}
+
+.wish-empty {
+  width: 100vw;
+  height: 50vh;
+
+  display: grid;
+  place-items: center;
+}
+
+.basket {
+  color: rgb(186, 183, 183);
 }

@@ -12,6 +12,7 @@ export const initialState = {
     rating: null,
     sortBy: null,
     cart: [],
+    wishlist: [],
 }
 
 /* Initial state for the filter */

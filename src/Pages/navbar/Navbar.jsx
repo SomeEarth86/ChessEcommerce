@@ -8,6 +8,7 @@ export const Navbar = () => {
     const { authToken } = useAuth();
     const navigate = useNavigate();
     const { filterState } = useFilter();
+
     const isUserLoggedIn = (path) => {
         return authToken ? navigate(path) : navigate("/login");
     }
@@ -28,7 +29,10 @@ export const Navbar = () => {
                     className="far fa-heart fa-lg badge-nav"
                     onClick={() => isUserLoggedIn("/wishlist")}
                 >
-                    <span className="badge-num">5</span>
+                    {authToken && filterState.wishlist.length > 0 && (
+
+                        <span className="badge-num">{filterState.wishlist.length}</span>
+                    )}
                 </i>
 
                 <i
