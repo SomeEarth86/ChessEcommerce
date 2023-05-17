@@ -2,7 +2,8 @@ import React from 'react'
 import './cart.css'
 import { useFilter } from '../Product/Context-reducer/FilterContext'
 import { useAuth } from '../Product/Context-reducer/AuthContext';
-import { changeQtyCart, deleteCart } from '../utils/Services';
+import { changeQtyCart, deleteCart } from '../utils/cartService';
+import { addToWishlist } from '../utils/wishlistService';
 
 export const CartItemList = () => {
     const { filterState, filterDispatch } = useFilter();
@@ -37,13 +38,35 @@ export const CartItemList = () => {
         })
     }
 
+    const cartWishlistHandler = async (item) => {
+
+        const itemInWishlist = (item) => {
+            return filterState.wishlist.find((wishlistItem) => item._id === wishlistItem._id)
+        }
+
+        if (!itemInWishlist(item)) {
+            const wishResp = await addToWishlist(authToken, item);
+            filterDispatch({
+                type: "WISHLIST_OPERATION",
+                payload: { wishlist: wishResp.wishlist },
+            })
+        }
+
+
+        const cartResponse = await deleteCart(item._id, authToken)
+        filterDispatch({
+            type: "CART_OPERATION",
+            payload: { cart: cartResponse.cart },
+        })
+    }
+
     return (<>
         {filterState.cart.length > 0 &&
             <div className='prod-list-vertical'>
 
                 {[...filterState.cart].map((item) =>
                     item && (
-                        <div className="item-card">
+                        <div key={item._id} className="item-card">
                             <div className="card-imgbox">
                                 <img className="card-img-cart" src={item.ImageSource} alt="product-img" />
                             </div>
@@ -69,13 +92,16 @@ export const CartItemList = () => {
                                         className="btn-cart btn btn-warning red-clr"
                                         onClick={() => removeItem(item)}
                                     >Remove From Cart</button>
-                                    <button className="btn-cart btn btn-light pur">Move to Wishlist</button>
+                                    <button
+                                        className="btn-cart btn btn-light pur"
+                                        onClick={() => cartWishlistHandler(item)}
+                                    >Move to Wishlist</button>
 
                                 </div>
                             </div>
                         </div>
                     )
-                )}  
+                )}
             </div>
         }
 

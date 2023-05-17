@@ -41,6 +41,12 @@ export const FilterReducer = (state, action) => {
                 cart: [...action.payload.cart],
             }
 
+        case "WISHLIST_OPERATION":
+            return {
+                ...state,
+                wishlist: [...action.payload.wishlist],
+            }
+
         case "CLEAR_ALL":
             return {
                 priceRange: 4500,

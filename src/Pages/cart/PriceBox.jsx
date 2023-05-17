@@ -14,7 +14,7 @@ export const PriceBox = () => {
             {
                 cartItem.map((item) => {
                     return <>
-                        <div className="item-cost-detail">
+                        <div key={item._id} className="item-cost-detail">
                             <p>{item.title}{`(${item.qty} item)`}</p>
                             <p>₹ {item.price}</p>
                         </div>

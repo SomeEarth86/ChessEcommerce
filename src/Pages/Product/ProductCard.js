@@ -10,7 +10,8 @@ import {
 } from '../utils/filterMethod';
 import { useAuth } from './Context-reducer/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { addToCart } from '../utils/Services';
+import { addToCart } from '../utils/cartService';
+import { addToWishlist, removeFromWishlist } from '../utils/wishlistService';
 
 export const ProductCard = () => {
     const { ProductDetail: products } = useProduct();
@@ -41,6 +42,26 @@ export const ProductCard = () => {
 
     }
 
+    const isItemUnderWishlist = (product) => {
+        return filterState.wishlist.find((item) => product._id === item._id)
+    }
+
+    const wishlistHandler = async (product) => {
+        if (!authToken)
+            navigate("/login");
+        else {
+            let resp;
+            if (isItemUnderWishlist(product))
+                resp = await removeFromWishlist(product._id, authToken)
+            else
+                resp = await addToWishlist(authToken, product);
+            filterDispatch({
+                type: "WISHLIST_OPERATION",
+                payload: { wishlist: resp.wishlist },
+            })
+        }
+    }
+
     const toggleButtonText = (product) => {
         const filterItem = filterState.cart.filter(cartItem => cartItem._id === product._id)
 
@@ -52,10 +73,15 @@ export const ProductCard = () => {
 
     return (<>
         {sortCategoryProd.map((product) => {
-            return <div className="ecom-card badge">
+            return <div key={product._id} className="ecom-card badge">
                 <div className="image-box">
                     <img src={product.ImageSource} alt="prod-img" className="ecom-img" />
-                    <i className="fas fa-heart icon"></i>
+                    <i
+                        className={`icon 
+                        ${isItemUnderWishlist(product) ? "fas fa-heart" : "far fa-heart"}
+                        `}
+                        onClick={() => wishlistHandler(product)}
+                    ></i>
                 </div>
 
                 <div className="card-detail">
